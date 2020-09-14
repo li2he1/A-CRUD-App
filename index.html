@@ -6,6 +6,7 @@
     <title>CRUD</title>
     <link href="styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -20,15 +21,12 @@
       <input type="text" id="add-todo" placeholder="Thing To-Do">
       <input type="submit" value="Add" class="btn btn-primary">
     </form>
+    <h3>List:</h3>
     
-    <table>
-      <tr class="list">
-          <th><h3>List:</h3></th>
-      </tr>
-          <tbody id="tasks">
-          </tbody>
-    </table>
+      
   </div>
+ 
+    <ul id="item-list"></ul>
 
   <div id="edit-box" role="aria-hidden">
     <form action="javascript:void(0);" method="POST" id="save-edit">

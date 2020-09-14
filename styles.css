@@ -14,19 +14,63 @@ input[type='submit'], button, [aria-label]{
 }
 #edit-box{
     display: none;
-  /* max-width: 80%; */
     margin: auto;
     margin-top: 10px;
     text-align: center
 }
 
-td{
-    background-color: aliceblue;
+#item-list {
+    border: 1px solid gray;
+	background: #F2EBD9;
+	color: #624630;
+    list-style: none;
+    max-width:800px;
     margin: auto;
-    /* padding-right: 10px; */
-    text-align: center;
+	padding: 10px;
 }
 
-.list{
-    background: transparent !important;
+.item {
+    width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--todo-bg-color);
+  padding: 2%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-bottom: 20px;
+	/* align-items: center;
+	border-bottom: 1px solid #FFFFFF;
+	display: flex;
+	margin: 10px;
+	padding: 15px;
+	transition: background-color 100ms linear; */
+}
+
+.item:last-child {
+	border: none;
+}
+.btn.btn-warning {
+    margin-left: auto;
+}
+
+.btn.btn-danger {
+  float: right;
+}
+
+
+.item:hover {
+	background: rgba(255, 255, 255, 0.8);
+	transition: background-color 100ms linear;
+}
+
+.fav-link {
+	border-left: 1px solid #FFFFFF;
+	cursor: pointer;
+	line-height: 60px;
+	text-align: center;
+	width: 60px;
+}
+
+.fav-link:hover {
+	color: #F13F3F;
 }
