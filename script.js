@@ -1,7 +1,11 @@
 var app = new function() {
     this.el = document.getElementById('item-list');
     
-    this.tasks = [];
+    this.tasks = [
+        {id:0, content:'Study', favorite:false},
+        {id:1,content:'Workout',favorite:true},
+        {id:2,content:'Breakfast', favorite:true},
+    ];
   
     this.FetchAll = function(todos) {
         this.el.innerHTML = '';
@@ -36,10 +40,10 @@ var app = new function() {
       }
     };
   
-    this.Edit = function (item_id) {
+    this.Edit = function (item) {
       var el = document.getElementById('edit-todo');
       // Display value in the field
-      el.value = this.tasks[item_id].content;
+      el.value = item.content;
       // Display fields
       document.getElementById('edit-box').style.display = 'block';
       self = this;
@@ -50,7 +54,7 @@ var app = new function() {
   
         if (text) {
           // Edit value
-          self.tasks[item_id].content=text.trim();
+          item.content=text.trim();
           // Display the new list
           //self.FetchAll();
           // Hide fields
@@ -61,9 +65,10 @@ var app = new function() {
       }
     };
   
-    this.Delete = function (item_id) {
+    this.Delete = function (item) {
       // Delete the current row
-      this.tasks.splice(item_id, 1);
+      const index = this.tasks.indexOf(item);
+      this.tasks.splice(index, 1);
       // Display the new list
       pagination.render();
       pagination.gotoCurrentPage();
@@ -84,7 +89,7 @@ var app = new function() {
     
 }
   
-app.FetchAll(app.getPagedData(1, 10));
+
 
 function CloseInput() {
     document.getElementById('edit-box').style.display = 'none';
@@ -142,7 +147,7 @@ function addItem(itemList, item) {
     });
     
     edit.onclick = function() {
-        app.Edit( item.id );
+        app.Edit( item );
       };
     edit.innerHTML = 'Edit';
     li.appendChild(edit);
@@ -153,7 +158,7 @@ function addItem(itemList, item) {
     });
     
     deleteSection.onclick = function() {
-        app.Delete( item.id );
+        app.Delete( item );
     }; 
     deleteSection.innerHTML = "Delete";
     li.appendChild(deleteSection);
@@ -182,7 +187,7 @@ var pagination = new function(){
     this.totalRecords =0;
     this.render=function () {
         this.totalRecords = app.getTodosCount();
-        let pages = Math.ceil(this.totalRecords / this.pageLength);
+        let pages = Math.ceil(this.totalRecords / this.pageLength+0.1);
         this.pages = pages;
 
         let buttons = '';
@@ -246,6 +251,7 @@ var pagination = new function(){
     },
 
     this.gotoPage=function (btn, pageNo) {
+       
         this.currentPage = pageNo;
         let paginationButtons = document.querySelectorAll(".pagination-btn");
         for(let i = 0; i < paginationButtons.length; i++) {
@@ -269,6 +275,57 @@ var pagination = new function(){
 
 }
 pagination.render();
+
+app.FetchAll(app.getPagedData(1, pagination.pageLength));
+
+//Modal
+
+const openEls = document.querySelectorAll("[data-open]");
+const closeEls = document.querySelectorAll("[data-close]");
+const isVisible = "is-visible";
+
+for (const el of openEls) {
+  el.addEventListener("click", function() {
+    const modalId = this.dataset.open;
+    document.getElementById(modalId).classList.add(isVisible);
+
+    var modalEl= document.getElementById('tasks');
+    var data = '';
+
+    if (app.tasks.length > 0) {
+      for (i = 0; i < app.tasks.length; i++) {
+        if(app.tasks[i].favorite===true){
+          data += '<tr>';
+          data += '<td>' + app.tasks[i].content + '</td>';
+          data += '</tr>';
+        }
+        
+      }
+    }
+
+    return modalEl.innerHTML = data;
+    
+  });
+}
+
+for (const el of closeEls) {
+  el.addEventListener("click", function() {
+    this.parentElement.parentElement.parentElement.classList.remove(isVisible);
+  });
+}
+
+document.addEventListener("click", e => {
+  if (e.target == document.querySelector(".modal.is-visible")) {
+    document.querySelector(".modal.is-visible").classList.remove(isVisible);
+  }
+});
+
+document.addEventListener("keyup", e => {
+  // if we press the ESC
+  if (e.key == "Escape" && document.querySelector(".modal.is-visible")) {
+    document.querySelector(".modal.is-visible").classList.remove(isVisible);
+  }
+});
 
 
 

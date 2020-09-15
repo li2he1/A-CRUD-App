@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD</title>
     <link href="styles.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="script.js" defer></script>
 </head>
@@ -23,7 +22,7 @@
       <button  class="btn btn-info">
         Sort
       </button>
-      <button  class="btn btn-warning">
+      <button  type="button" class="open-modal, btn"  data-open="modal1">
         Favorite List
       </button>
     </form>   
@@ -34,14 +33,25 @@
     <div id="pagination"></div>
     <ul id="item-list"></ul>
   </div>
-  
-    
-
   <div id="edit-box" role="aria-hidden">
     <form action="javascript:void(0);" method="POST" id="save-edit">
       <input type="text" id="edit-todo">
       <input type="submit" value="Save" class="btn btn-success"/> <a onclick="CloseInput()" aria-label="Close">&#10006;</a>
     </form>
+  </div>
+
+  <div class="modal" id="modal1">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        Favorite List
+        <button class="close-modal" aria-label="close modal" data-close>✕</button>
+      </header>
+      <table>
+            <tbody class="modal-content" id="tasks">
+            </tbody>
+      </table>
+     
+    </div>
   </div>
 </body>
 </html>
