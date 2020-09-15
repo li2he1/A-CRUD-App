@@ -327,5 +327,15 @@ document.addEventListener("keyup", e => {
   }
 });
 
+function Sort() {
+  app.tasks.sort(function(a, b)
+  {
+      var x = a.content, y = b.content;
+      
+      return x < y ? -1 : x > y ? 1 : 0;
+  });
+  pagination.render();
+  pagination.gotoCurrentPage();
 
+}
 
